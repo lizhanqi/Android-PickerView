@@ -111,8 +111,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onTimeSelect(Date date, View v) {//选中事件回调
                 Toast.makeText(MainActivity.this, getTime(date), Toast.LENGTH_SHORT).show();
             }
-        })
+        })  .setContentContainerBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
+                .setContentContainerPaddingBottom(200)
+                .setContentContainerMarginBottom(100)
                 .setDate(selectedDate)
+                .setRootMarginBootom(200)
                 .setRangDate(startDate, endDate)
                 .setLayoutRes(R.layout.pickerview_custom_lunar, new CustomListener() {
 
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
-                .setType(new boolean[]{true, true, true, false, false, false})
+              .setRootMarginBootom(200  )  .setType(new boolean[]{true, true, true, false, false, false})
                 .setLabel("", "", "", "", "", "")
                 .isCenterLabel(false)
                 .setDividerColor(Color.DKGRAY)
@@ -243,6 +246,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCancelColor(Color.WHITE)*/
                /*.gravity(Gravity.RIGHT)// default is center*/
                 .setDate(selectedDate)
+
+                .setContentContainerMarginBottom(30)
                 .setRangDate(startDate, endDate)
                 .setLayoutRes(R.layout.pickerview_custom_time, new CustomListener() {
 
@@ -265,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         });
                     }
                 })
+                .setContentContainerPaddingBottom(60)
                 .setContentSize(18)
                 .setType(new boolean[]{false, false, false, true, true, true})
                 .setLabel("年", "月", "日", "时", "分", "秒")
@@ -342,6 +348,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setLabels("省", "市", "区")
                 .setBackgroundId(0x66000000) //设置外部遮罩颜色
+                .setContentContainerBackgroundColor(getResources().getColor(R.color.colorAccent))
                 .build();
 
         //pvOptions.setSelectOptions(1,1);
@@ -474,7 +481,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void getNoLinkData() {
+    private void    getNoLinkData() {
         food.add("KFC");
         food.add("MacDonald");
         food.add("Pizza hut");

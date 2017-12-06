@@ -76,7 +76,10 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
 
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
-
+    private  int contentContainerMarginBottom;
+    private  int contentContainerPaddingBottom;
+    private int contentContainerColor;
+    private int  rootMarginBootom;
     //构造方法
     public TimePickerView(Builder builder) {
         super(builder.context);
@@ -125,6 +128,10 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         this.dividerType = builder.dividerType;
         this.backgroundId = builder.backgroundId;
         this.decorView = builder.decorView;
+        this.contentContainerPaddingBottom=builder.contentContainerPaddingBottom;
+        this.contentContainerMarginBottom=builder.contentContainerMarginBottom;
+        this.contentContainerColor=builder.contentContainerColor;
+        this.rootMarginBootom=builder.rootMarginBootom;
         initView(builder.context);
     }
 
@@ -172,9 +179,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         private WheelView.DividerType dividerType;//分隔线类型
         // 条目间距倍数 默认1.6
         private float lineSpacingMultiplier = 1.6F;
-
         private boolean isDialog;//是否是对话框模式
-
         private String label_year, label_month, label_day, label_hours, label_mins, label_seconds;//单位
         private int xoffset_year, xoffset_month, xoffset_day, xoffset_hours, xoffset_mins, xoffset_seconds;//单位
 
@@ -227,7 +232,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
 
         /**
          * 必须是viewgroup
-         * 设置要将pickerview显示到的容器id
+             * 设置要将pickerview显示到的容器id
          *
          * @param decorView
          * @return
@@ -246,27 +251,22 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
             this.Color_Background_Title = Color_Background_Title;
             return this;
         }
-
         public Builder setTitleColor(int Color_Title) {
             this.Color_Title = Color_Title;
             return this;
         }
-
         public Builder setSubCalSize(int Size_Submit_Cancel) {
             this.Size_Submit_Cancel = Size_Submit_Cancel;
             return this;
         }
-
         public Builder setTitleSize(int Size_Title) {
             this.Size_Title = Size_Title;
             return this;
         }
-
         public Builder setContentSize(int Size_Content) {
             this.Size_Content = Size_Content;
             return this;
         }
-
         /**
          * 因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
          *
@@ -344,6 +344,43 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
             this.backgroundId = backgroundId;
             return this;
         }
+        int contentContainerColor;
+        /**
+         * 设置包裹内容的背景色
+         * @param contentContainerColor
+         * @return
+         */
+        public Builder setContentContainerBackgroundColor(int contentContainerColor) {
+            this.contentContainerColor = contentContainerColor;
+            return this;
+        }
+        /**
+         * 设置包裹内容容器距离底部距离
+         */
+        int contentContainerMarginBottom;
+        public Builder setContentContainerMarginBottom(int contentContainerMarginBottom) {
+            this.contentContainerMarginBottom = contentContainerMarginBottom;
+            return this;
+        }
+
+        int contentContainerPaddingBottom;
+        /**
+         * 设置包裹内容容器底部缩进距离
+         */
+        public Builder setContentContainerPaddingBottom(int contentContainerPaddingBottom) {
+            this.contentContainerPaddingBottom = contentContainerPaddingBottom;
+            return this;
+        }
+
+        public int rootMarginBootom;
+
+        /**
+         * 设置Root的底部距离
+         */
+        public Builder setRootMarginBootom(int rootMarginBootom) {
+            this.rootMarginBootom = rootMarginBootom;
+            return this;
+        }
 
         /**
          * 设置分割线之间的文字的颜色
@@ -419,11 +456,14 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         public TimePickerView build() {
             return new TimePickerView(this);
         }
+
     }
-
-
     private void initView(Context context) {
         setDialogOutSideCancelable(cancelable);
+        setContentContainerMarginBottom(contentContainerMarginBottom);
+        setContentContainerPaddingBootom(contentContainerPaddingBottom);
+        setContentContainerBackgroundColor(contentContainerColor);
+        setRootMarginBootom(rootMarginBootom);
         initViews(backgroundId);
         init();
         initEvents();

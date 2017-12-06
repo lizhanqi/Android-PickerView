@@ -83,7 +83,10 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
     private int xoffset_three;
 
     private WheelView.DividerType dividerType;//分隔线类型
-
+    private  int contentContainerMarginBottom;
+    private  int contentContainerPaddingBottom;
+    private int contentContainerColor;
+    private int rootMarginBootom;
     //构造方法
     public OptionsPickerView(Builder builder) {
         super(builder.context);
@@ -133,9 +136,13 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         this.dividerType = builder.dividerType;
         this.backgroundId = builder.backgroundId;
         this.decorView = builder.decorView;
+        this.contentContainerPaddingBottom=builder.contentContainerPaddingBottom;
+        this.contentContainerMarginBottom=builder.contentContainerMarginBottom;
+        this.contentContainerColor=builder.contentContainerColor;
+        this.rootMarginBootom=builder.rootMarginBootom;
         initView(builder.context);
-    }
 
+    }
 
     //建造器
     public static class Builder {
@@ -189,9 +196,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         private int xoffset_one;//x轴偏移量
         private int xoffset_two;
         private int xoffset_three;
-
         private WheelView.DividerType dividerType;//分隔线类型
-
         //Required
         public Builder(Context context, OnOptionsSelectListener listener) {
             this.context = context;
@@ -240,11 +245,52 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
             this.backgroundId = backgroundId;
             return this;
         }
+        int contentContainerColor;
+        /**
+         * 设置包裹内容的背景色
+         * @param contentContainerColor
+         * @return
+         */
+        public Builder setContentContainerBackgroundColor(int contentContainerColor) {
+            this.contentContainerColor = contentContainerColor;
+            return this;
+        }
 
+        /**
+         * 设置包裹内容容器距离底部距离
+         */
+        int contentContainerMarginBottom;
+        public Builder setContentContainerMarginBottom(int contentContainerMarginBottom) {
+            this.contentContainerMarginBottom = contentContainerMarginBottom;
+            return this;
+        }
+
+        int contentContainerPaddingBottom;
+        /**
+         * 设置包裹内容容器底部缩进距离
+         */
+        public Builder setContentContainerPaddingBottom(int contentContainerPaddingBottom) {
+            this.contentContainerPaddingBottom = contentContainerPaddingBottom;
+            return this;
+        }
+
+        public int rootMarginBootom;
+
+        /**
+         * 设置Root的底部距离
+         */
+        public Builder setRootMarginBootom(int rootMarginBootom) {
+            this.rootMarginBootom = rootMarginBootom;
+            return this;
+        }
         /**
          * 必须是viewgroup
          * 设置要将pickerview显示到的容器
-         *
+         *            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+         layoutParams.bottomMargin=rootMarginBootom;
+         rootView.setLayoutParams(layoutParams);            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+         layoutParams.bottomMargin=rootMarginBootom;
+         rootView.setLayoutParams(layoutParams);
          * @param decorView
          * @return
          */
@@ -408,9 +454,12 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         }
     }
 
-
     private void initView(Context context) {
         setDialogOutSideCancelable(cancelable);
+        setContentContainerMarginBottom(contentContainerMarginBottom);
+        setContentContainerPaddingBootom(contentContainerPaddingBottom);
+        setContentContainerBackgroundColor(contentContainerColor);
+        setRootMarginBootom(rootMarginBootom);
         initViews(backgroundId);
         init();
         initEvents();

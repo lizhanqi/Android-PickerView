@@ -63,9 +63,25 @@ public class BasePickerView {
         init();
         initEvents();*/
     }
-
+    int  contentContainerPaddingBootom;
+    public void setContentContainerPaddingBootom(int contentContainerPaddingBootom) {
+        this.contentContainerPaddingBootom = contentContainerPaddingBootom;
+    }
+        int mBootomMargin;
+    public  void setContentContainerMarginBottom(int mBootomMargin){
+        this.mBootomMargin=mBootomMargin;
+    }
+     int contentContainerBackgroundColor;
+    public  void setContentContainerBackgroundColor( int contentContainerBackgroundColor){
+        this.contentContainerBackgroundColor=contentContainerBackgroundColor;
+    }
+        int rootMarginBootom;
+    public void setRootMarginBootom(int rootMarginBootom) {
+        this.rootMarginBootom = rootMarginBootom;
+    }
     protected void initViews(int backgroudId) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
+
         if (isDialog()) {
             //如果是对话框模式
             dialogView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview, null, false);
@@ -87,6 +103,7 @@ public class BasePickerView {
                 }
             });
         } else {
+            this.params.bottomMargin=mBootomMargin;
             //如果只是要显示在屏幕的下方
             //decorView是activity的根View
             if (decorView == null) {
@@ -94,9 +111,9 @@ public class BasePickerView {
             }
             //将控件添加到decorView中
             rootView = (ViewGroup) layoutInflater.inflate(R.layout.layout_basepickerview, decorView, false);
-            rootView.setLayoutParams(new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
-            ));
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.bottomMargin=rootMarginBootom;
+            rootView.setLayoutParams(layoutParams);
             if (backgroudId != 0) {
                 rootView.setBackgroundColor(backgroudId);
             }
@@ -105,6 +122,8 @@ public class BasePickerView {
             contentContainer = (ViewGroup) rootView.findViewById(R.id.content_container);
             contentContainer.setLayoutParams(params);
         }
+        contentContainer.setBackgroundColor(contentContainerBackgroundColor);
+        contentContainer.setPadding(0,0,0,contentContainerPaddingBootom);
         setKeyBackCancelable(true);
     }
 
